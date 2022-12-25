@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
@@ -11,6 +11,7 @@ using PickupTransmutationManager = RoR2.PickupTransmutationManager;
 namespace BetterCommandArtifact
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+
     public class BetterCommandArtifact : BaseUnityPlugin
     {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
@@ -18,35 +19,33 @@ namespace BetterCommandArtifact
         public const string PluginName = "BetterCommandArtifact";
         public const string PluginVersion = "1.0.1";
 
-        public static ConfigFile configFile = new ConfigFile(Paths.ConfigPath + "\\BetterCommandArtifact.cfg", true);
-        public static ConfigEntry<int> itemAmount { get; set; }
-        
+        public static ConfigFile configFile = new(Paths.ConfigPath + "\\BetterCommandArtifact.cfg", true);
+
+        public static ConfigEntry<int> ItemAmount { get; set; }
+
         public void OnEnable()
         {
-            itemAmount = configFile.Bind("BetterCommandArtifact", "itemAmount", 5, new ConfigDescription("Set the amount of items shown when opening a command artifact drop. \n Value must be Greater Than 0."));
+            ItemAmount = configFile.Bind("BetterCommandArtifact", "itemAmount", 5, new ConfigDescription("Sets the total amount of items shown when opening a command artifact drop. \n Value must be Greater Than 0."));
             Config.SettingChanged += ConfigOnSettingChanged;
             On.RoR2.PickupPickerController.SetOptionsFromPickupForCommandArtifact += SetOptions;
         }
-
         void ConfigOnSettingChanged(object sender, SettingChangedEventArgs e)
         {
-            if (itemAmount.Value <= 0)
-                itemAmount.Value = 1;
+            if (ItemAmount.Value <= 0)
+                ItemAmount.Value = 1;
         }
-
         public void OnDisable()
         {
             On.RoR2.PickupPickerController.SetOptionsFromPickupForCommandArtifact -= SetOptions;
         }
-        
+
         [Server]
         void SetOptions(On.RoR2.PickupPickerController.orig_SetOptionsFromPickupForCommandArtifact orig, RoR2.PickupPickerController self, PickupIndex pickupIndex)
         {
             if (!NetworkServer.active) return;
-            
+
             PickupIndex[] newSelection = PickupTransmutationManager.GetGroupFromPickupIndex(pickupIndex);
             PickupPickerController.Option[] array;
-
             if (newSelection == null)
             {
                 array = new PickupPickerController.Option[1]
@@ -60,10 +59,11 @@ namespace BetterCommandArtifact
             }
             else
             {
-                Random rnd = new Random();
-                List<PickupIndex> list = new List<PickupIndex>();
+                Random rnd = new();
+                List<PickupIndex> list = new();
 
-                int extraItems = itemAmount.Value;
+                int extraItems = ItemAmount.Value;
+
                 if (pickupIndex != PickupIndex.none)
                 {
                     list.Add(pickupIndex);
