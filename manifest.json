@@ -1,10 +1,10 @@
-﻿{
-	"name": "BetterCommandArtifact",
-	"version_number": "1.1.0",
+{
+	"name": "Better Command Artifact",
+	"version_number": "1.2.0",
 	"website_url": "https://github.com/BooopDev/BetterCommandArtifact",
-	"description": "Fixes the Artifact By Limiting The Amount of Items Shown",
+	"description": "Balances The Command Artifact By Limiting The Amount of Items Shown",
 	"dependencies": [
-		"bbepis-BepInExPack-5.4.1902",
+		"bbepis-BepInExPack-5.4.2103",
 		"RiskofThunder-HookGenPatcher-1.2.3"
 	]
 }
