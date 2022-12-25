@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
@@ -8,18 +8,9 @@ using UnityEngine.Networking;
 using PickupIndex = RoR2.PickupIndex;
 using PickupTransmutationManager = RoR2.PickupTransmutationManager;
 
-namespace R2API.Utils
-{
-    [AttributeUsage(AttributeTargets.Assembly)]
-    public class ManualNetworkRegistrationAttribute : Attribute
-    {
-    }
-}
-
 namespace BetterCommandArtifact
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    
     public class BetterCommandArtifact : BaseUnityPlugin
     {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
@@ -28,7 +19,6 @@ namespace BetterCommandArtifact
         public const string PluginVersion = "1.0.1";
 
         public static ConfigFile configFile = new ConfigFile(Paths.ConfigPath + "\\BetterCommandArtifact.cfg", true);
-
         public static ConfigEntry<int> itemAmount { get; set; }
         
         public void OnEnable()
@@ -82,8 +72,6 @@ namespace BetterCommandArtifact
 
                 if (extraItems > 0)
                 {
-                    var add = (from x in newSelection.ToList() orderby rnd.Next() select x).Where(x => Run.instance.IsPickupAvailable(x));
-
                     List<PickupIndex> additionalOptions = (from x in newSelection.ToList() orderby rnd.Next() select x).Where(x => (Run.instance.IsPickupAvailable(x) && x != pickupIndex)).Take(extraItems).ToList();
                     list.AddRange(additionalOptions);
                 }
