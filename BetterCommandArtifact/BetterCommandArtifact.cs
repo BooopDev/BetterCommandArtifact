@@ -8,9 +8,16 @@ using UnityEngine.Networking;
 using PickupIndex = RoR2.PickupIndex;
 using PickupTransmutationManager = RoR2.PickupTransmutationManager;
 
+namespace R2API.Utils
+{
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public class ManualNetworkRegistrationAttribute : Attribute
+    {
+    }
+}
+
 namespace BetterCommandArtifact
 {
-    [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     
     public class BetterCommandArtifact : BaseUnityPlugin
@@ -18,7 +25,7 @@ namespace BetterCommandArtifact
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Boooooop";
         public const string PluginName = "BetterCommandArtifact";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         public static ConfigFile configFile = new ConfigFile(Paths.ConfigPath + "\\BetterCommandArtifact.cfg", true);
 
@@ -64,7 +71,23 @@ namespace BetterCommandArtifact
             else
             {
                 Random rnd = new Random();
-                List<PickupIndex> list = (from x in newSelection.ToList() orderby rnd.Next() select x).Take(itemAmount.Value).ToList();
+                List<PickupIndex> list = new List<PickupIndex>();
+
+                int extraItems = itemAmount.Value;
+                if (pickupIndex != PickupIndex.none)
+                {
+                    list.Add(pickupIndex);
+                    extraItems--;
+                }
+
+                if (extraItems > 0)
+                {
+                    var add = (from x in newSelection.ToList() orderby rnd.Next() select x).Where(x => Run.instance.IsPickupAvailable(x));
+
+                    List<PickupIndex> additionalOptions = (from x in newSelection.ToList() orderby rnd.Next() select x).Where(x => (Run.instance.IsPickupAvailable(x) && x != pickupIndex)).Take(extraItems).ToList();
+                    list.AddRange(additionalOptions);
+                }
+
                 array = new PickupPickerController.Option[list.Count];
                 for (int i = 0; i < list.Count; i++)
                 {
