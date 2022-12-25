@@ -13,7 +13,8 @@ You can find me on Discord: Boooop#8008
 
 ## Changelog
 
-**1.2.0**
+**1.2.0 - Big thanks to Moffein for the bug fixes below**
+
 
 * Fixed locked items sometimes showing up in the drop menu.
 
