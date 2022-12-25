@@ -1,25 +1,29 @@
-### Command artifact go brrrrrrrr........
+### Limiting Endless Possibilities Since 2021
 
-A nice QOL mod that changes the way that the command artifact behaves. Instead of giving you a selection of every item in the game, you now get to choose the exact amount of items that get shown. Set the item count to your liking, make it higher, make it lower, you have control. (default is 5 items)
+A QOL mod that changes the way that the command artifact behaves to create a more balanced experience while playing. 
 
 ## How it works
 
-This is a super simple mod, so listen up. 
-
-1. Pick a number between 1 and another number. Let's say 5.
-2. Punch that number into the config file.
-3. Load up the game.
-4. Turn on the Command Artifact
-5. Pick up an item.
-6. Get 5 random items instead.
-7. Cry in a corner
+The command artifact has been altered to reduce the amount of items shown. By default this mod will only show you 5 random items but this can be changed within the config file.
 
 ## Feedback
-I'm basically an idiot, so things might be broken, feel free to ask for help or report bugs.
+Please feel free to provide feedback or bug reports if you come across any issues while using this mod.
 
 You can find me on Discord: Boooop#8008
 
 ## Changelog
+
+**1.2.0**
+
+* Fixed locked items sometimes showing up in the drop menu.
+
+* The original pickup is now always included in the drop menu.
+
+* Added additional check for PickupIndex
+
+* Fixed Selections sometimes only having 2 options.
+
+* Removed R2API
 
 **1.1.0**
 
