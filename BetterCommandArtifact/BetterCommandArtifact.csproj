@@ -25,4 +25,16 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Reference Include="RiskOfOptions">
+	    <HintPath>RiskOfOptions.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="BetterCommandArtifactReWritten.cs">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
