@@ -9,8 +9,6 @@ The command artifact has been altered to reduce the amount of items shown. By de
 ## Feedback
 Please feel free to provide feedback or bug reports if you come across any issues while using this mod.
 
-You can find me on Discord: Boooop#8008
-
 ## Changelog
 
 **1.2.0 - Big thanks to Moffein for the bug fixes below**
